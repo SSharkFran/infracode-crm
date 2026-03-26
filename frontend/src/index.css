@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply min-h-screen bg-app-bg bg-hero text-zinc-100 font-sans antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-3xl border border-app-border bg-app-card/90 shadow-panel backdrop-blur;
+  }
+
+  .panel-soft {
+    @apply rounded-2xl border border-app-border bg-app-card-soft/90 shadow-panel backdrop-blur;
+  }
+
+  .field-label {
+    @apply mb-2 block text-sm font-semibold text-zinc-300;
+  }
+
+  .input-base {
+    @apply h-11 w-full rounded-2xl border border-white/10 bg-black/30 px-4 text-sm text-zinc-100 outline-none transition focus:border-app-accent focus:ring-2 focus:ring-app-accent/30;
+  }
+
+  .textarea-base {
+    @apply w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-app-accent focus:ring-2 focus:ring-app-accent/30;
+  }
+
+  .select-base {
+    @apply input-base appearance-none;
+  }
+
+  .button-primary {
+    @apply inline-flex items-center justify-center rounded-2xl bg-app-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-100 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .button-danger {
+    @apply inline-flex items-center justify-center rounded-2xl border border-rose-500/30 bg-rose-500/10 px-4 py-2.5 text-sm font-semibold text-rose-300 transition hover:bg-rose-500/20 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .badge-base {
+    @apply inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold;
+  }
+
+  .dialog-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm;
+  }
+
+  .dialog-panel {
+    @apply panel max-h-[90vh] w-full max-w-2xl overflow-y-auto p-6;
+  }
+
+  .table-shell {
+    @apply overflow-hidden rounded-2xl border border-white/10;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .panel,
+  .panel-soft,
+  .print-surface {
+    background: white !important;
+    color: black !important;
+    border-color: #d4d4d8 !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+}

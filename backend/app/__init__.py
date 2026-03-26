@@ -1,0 +1,1 @@
+"""InfraCode CRM backend package."""
