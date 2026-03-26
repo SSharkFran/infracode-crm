@@ -16,17 +16,17 @@ branch_labels = None
 depends_on = None
 
 
-client_type_enum = sa.Enum("recorrente", "pontual", "lead", "parceiro", name="client_type_enum", create_type=False)
-client_status_enum = sa.Enum("ativo", "negociacao", "encerrado", "inadimplente", name="client_status_enum", create_type=False)
-project_status_enum = sa.Enum("planejamento", "andamento", "entregue", "cancelado", name="project_status_enum", create_type=False)
-transaction_type_enum = sa.Enum("receita", "despesa", name="transaction_type_enum", create_type=False)
-transaction_status_enum = sa.Enum("pendente", "pago", "vencido", name="transaction_status_enum", create_type=False)
-task_priority_enum = sa.Enum("baixa", "media", "alta", "urgente", name="task_priority_enum", create_type=False)
-task_status_enum = sa.Enum("pendente", "andamento", "concluida", name="task_status_enum", create_type=False)
-integration_type_enum = sa.Enum("webhook_in", "api_out", name="integration_type_enum", create_type=False)
-integration_status_enum = sa.Enum("ativa", "inativa", "erro", name="integration_status_enum", create_type=False)
-integration_event_direction_enum = sa.Enum("in", "out", name="integration_event_direction_enum", create_type=False)
-integration_event_status_enum = sa.Enum("ok", "erro", name="integration_event_status_enum", create_type=False)
+client_type_enum = postgresql.ENUM("recorrente", "pontual", "lead", "parceiro", name="client_type_enum", create_type=False)
+client_status_enum = postgresql.ENUM("ativo", "negociacao", "encerrado", "inadimplente", name="client_status_enum", create_type=False)
+project_status_enum = postgresql.ENUM("planejamento", "andamento", "entregue", "cancelado", name="project_status_enum", create_type=False)
+transaction_type_enum = postgresql.ENUM("receita", "despesa", name="transaction_type_enum", create_type=False)
+transaction_status_enum = postgresql.ENUM("pendente", "pago", "vencido", name="transaction_status_enum", create_type=False)
+task_priority_enum = postgresql.ENUM("baixa", "media", "alta", "urgente", name="task_priority_enum", create_type=False)
+task_status_enum = postgresql.ENUM("pendente", "andamento", "concluida", name="task_status_enum", create_type=False)
+integration_type_enum = postgresql.ENUM("webhook_in", "api_out", name="integration_type_enum", create_type=False)
+integration_status_enum = postgresql.ENUM("ativa", "inativa", "erro", name="integration_status_enum", create_type=False)
+integration_event_direction_enum = postgresql.ENUM("in", "out", name="integration_event_direction_enum", create_type=False)
+integration_event_status_enum = postgresql.ENUM("ok", "erro", name="integration_event_status_enum", create_type=False)
 
 
 def upgrade() -> None:
