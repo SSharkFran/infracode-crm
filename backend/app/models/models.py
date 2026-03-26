@@ -14,6 +14,14 @@ class Base(AsyncAttrs, DeclarativeBase):
     pass
 
 
+def enum_values(enum_cls: type[enum.Enum]) -> list[str]:
+    return [member.value for member in enum_cls]
+
+
+def db_enum(enum_cls: type[enum.Enum], name: str) -> Enum:
+    return Enum(enum_cls, name=name, values_callable=enum_values)
+
+
 class ClientType(str, enum.Enum):
     RECORRENTE = "recorrente"
     PONTUAL = "pontual"
@@ -87,9 +95,9 @@ class Client(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str | None] = mapped_column(String(255), nullable=True)
     phone: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    type: Mapped[ClientType] = mapped_column(Enum(ClientType, name="client_type_enum"), nullable=False)
+    type: Mapped[ClientType] = mapped_column(db_enum(ClientType, "client_type_enum"), nullable=False)
     status: Mapped[ClientStatus] = mapped_column(
-        Enum(ClientStatus, name="client_status_enum"),
+        db_enum(ClientStatus, "client_status_enum"),
         nullable=False,
         default=ClientStatus.ATIVO,
         server_default=ClientStatus.ATIVO.value,
@@ -144,7 +152,7 @@ class Project(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     status: Mapped[ProjectStatus] = mapped_column(
-        Enum(ProjectStatus, name="project_status_enum"),
+        db_enum(ProjectStatus, "project_status_enum"),
         nullable=False,
         default=ProjectStatus.PLANEJAMENTO,
         server_default=ProjectStatus.PLANEJAMENTO.value,
@@ -166,13 +174,13 @@ class Transaction(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     project_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("projects.id"), nullable=True)
     client_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("clients.id"), nullable=True)
-    type: Mapped[TransactionType] = mapped_column(Enum(TransactionType, name="transaction_type_enum"), nullable=False)
+    type: Mapped[TransactionType] = mapped_column(db_enum(TransactionType, "transaction_type_enum"), nullable=False)
     description: Mapped[str] = mapped_column(String(255), nullable=False)
     amount: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False)
     due_date: Mapped[date] = mapped_column(Date, nullable=False)
     paid_at: Mapped[date | None] = mapped_column(Date, nullable=True)
     status: Mapped[TransactionStatus] = mapped_column(
-        Enum(TransactionStatus, name="transaction_status_enum"),
+        db_enum(TransactionStatus, "transaction_status_enum"),
         nullable=False,
         default=TransactionStatus.PENDENTE,
         server_default=TransactionStatus.PENDENTE.value,
@@ -192,13 +200,13 @@ class Task(Base):
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     priority: Mapped[TaskPriority] = mapped_column(
-        Enum(TaskPriority, name="task_priority_enum"),
+        db_enum(TaskPriority, "task_priority_enum"),
         nullable=False,
         default=TaskPriority.MEDIA,
         server_default=TaskPriority.MEDIA.value,
     )
     status: Mapped[TaskStatus] = mapped_column(
-        Enum(TaskStatus, name="task_status_enum"),
+        db_enum(TaskStatus, "task_status_enum"),
         nullable=False,
         default=TaskStatus.PENDENTE,
         server_default=TaskStatus.PENDENTE.value,
@@ -216,10 +224,10 @@ class Integration(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
-    type: Mapped[IntegrationType] = mapped_column(Enum(IntegrationType, name="integration_type_enum"), nullable=False)
+    type: Mapped[IntegrationType] = mapped_column(db_enum(IntegrationType, "integration_type_enum"), nullable=False)
     config: Mapped[dict[str, Any]] = mapped_column(JSON, nullable=False)
     status: Mapped[IntegrationStatus] = mapped_column(
-        Enum(IntegrationStatus, name="integration_status_enum"),
+        db_enum(IntegrationStatus, "integration_status_enum"),
         nullable=False,
         default=IntegrationStatus.ATIVA,
         server_default=IntegrationStatus.ATIVA.value,
@@ -245,12 +253,12 @@ class IntegrationEvent(Base):
     )
     client_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("clients.id"), nullable=True)
     direction: Mapped[IntegrationEventDirection] = mapped_column(
-        Enum(IntegrationEventDirection, name="integration_event_direction_enum"),
+        db_enum(IntegrationEventDirection, "integration_event_direction_enum"),
         nullable=False,
     )
     payload: Mapped[dict[str, Any]] = mapped_column(JSON, nullable=False)
     status: Mapped[IntegrationEventStatus] = mapped_column(
-        Enum(IntegrationEventStatus, name="integration_event_status_enum"),
+        db_enum(IntegrationEventStatus, "integration_event_status_enum"),
         nullable=False,
         default=IntegrationEventStatus.OK,
         server_default=IntegrationEventStatus.OK.value,
