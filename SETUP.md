@@ -190,3 +190,7 @@ npm run tauri:dev
 - install frontend deps
 - start frontend
 - log in with `.env` credentials
+
+## 15. Railway
+
+For a production deploy on Railway with GitHub autodeploy, use the configuration and steps in `RAILWAY.md`.

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import api from '../lib/api';
-import { badgeTone, cn, formatCurrencyBRL, getErrorMessage, transactionStatusLabels } from '../lib/utils';
+import { badgeTone, cn, formatCurrencyBRL, formatDateBR, getErrorMessage, transactionStatusLabels } from '../lib/utils';
 import type { ProfitByProjectItem, ReceivablesReport, RevenueByClientItem, RevenueByMonthItem } from '../types';
 
 const tabs = ['client', 'month', 'receivables', 'profit'] as const;

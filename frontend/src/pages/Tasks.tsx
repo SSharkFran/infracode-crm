@@ -101,7 +101,7 @@ export default function Tasks() {
     event.dataTransfer.setData('text/plain', task.id);
   };
 
-  const onDrop = (status: TaskStatus, event: DragEvent<HTMLDivElement>) => {
+  const onDrop = (status: TaskStatus, event: DragEvent<HTMLElement>) => {
     event.preventDefault();
     const taskId = event.dataTransfer.getData('text/plain');
     const task = tasksQuery.data?.find((item) => item.id === taskId);

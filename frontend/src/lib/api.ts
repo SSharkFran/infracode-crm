@@ -2,8 +2,10 @@ import axios from 'axios';
 
 export const AUTH_TOKEN_KEY = 'infracode_token';
 
+const apiBaseURL = import.meta.env.VITE_API_URL?.trim() || (import.meta.env.DEV ? 'http://localhost:8000/api/v1' : '/api/v1');
+
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: apiBaseURL,
   headers: {
     'Content-Type': 'application/json',
   },
