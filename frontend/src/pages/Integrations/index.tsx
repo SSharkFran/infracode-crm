@@ -305,7 +305,10 @@ export default function IntegrationsPage() {
           <div className="mt-6 grid gap-4 xl:grid-cols-[1fr_320px]">
             <div className="grid gap-4 md:grid-cols-2">
               <DataJudResultCard label="Número do processo" value={String((dataJudResult as Record<string, unknown>).numeroProcesso ?? (dataJudResult as Record<string, unknown>).numero_processo ?? dataJudForm.numero_cnj)} />
-              <DataJudResultCard label="Tribunal" value={String((dataJudResult as Record<string, unknown>).tribunal ?? dataJudForm.endpoint_path || '-')} />
+              <DataJudResultCard
+                label="Tribunal"
+                value={String(((dataJudResult as Record<string, unknown>).tribunal ?? dataJudForm.endpoint_path) || '-')}
+              />
               <DataJudResultCard label="Assunto" value={String((dataJudResult as Record<string, unknown>).assunto ?? (dataJudResult as Record<string, unknown>).classe ?? '-')} />
               <DataJudResultCard label="Última movimentação" value={String((dataJudResult as Record<string, unknown>).ultima_movimentacao ?? (dataJudResult as Record<string, unknown>).dataHoraUltimaAtualizacao ?? '-')} />
             </div>
