@@ -9,6 +9,7 @@ export type IntegrationType = 'webhook_in' | 'api_out';
 export type IntegrationStatus = 'ativa' | 'inativa' | 'erro';
 export type IntegrationEventDirection = 'in' | 'out';
 export type IntegrationEventStatus = 'ok' | 'erro';
+export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
 export interface Attachment {
   id: string;
@@ -58,6 +59,12 @@ export interface Project {
   created_at: string;
 }
 
+export interface ProjectDetail extends Project {
+  tasks: Task[];
+  transactions: Transaction[];
+  attachments: Attachment[];
+}
+
 export interface Task {
   id: string;
   project_id: string | null;
@@ -85,12 +92,6 @@ export interface Transaction {
   paid_at: string | null;
   status: TransactionStatus;
   created_at: string;
-}
-
-export interface ProjectDetail extends Project {
-  tasks: Task[];
-  transactions: Transaction[];
-  attachments: Attachment[];
 }
 
 export interface Integration {
@@ -159,4 +160,34 @@ export interface DataJudQueryResponse {
   integration_id: string;
   queried_at: string;
   result: Record<string, unknown>;
+}
+
+export interface CompanySettings {
+  name: string;
+  email: string;
+  timezone: string;
+  logo?: string | null;
+}
+
+export interface AppSettings {
+  compactMode: boolean;
+}
+
+export interface JwtPayload {
+  sub: string;
+  exp: number;
+  iat: number;
+}
+
+export interface ToastItem {
+  id: string;
+  type: ToastType;
+  message: string;
+  duration?: number;
+}
+
+export interface ApiValidationIssue {
+  loc?: Array<string | number>;
+  msg?: string;
+  type?: string;
 }

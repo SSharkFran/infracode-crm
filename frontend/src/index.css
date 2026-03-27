@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,80 +7,250 @@
   color-scheme: dark;
 }
 
-body {
-  @apply min-h-screen bg-app-bg bg-hero text-zinc-100 font-sans antialiased;
-}
-
+html,
+body,
 #root {
-  min-height: 100vh;
+  min-height: 100%;
 }
 
-@layer components {
-  .panel {
-    @apply rounded-3xl border border-app-border bg-app-card/90 shadow-panel backdrop-blur;
-  }
+body {
+  @apply bg-base text-text-primary font-sans antialiased;
+  background-image:
+    radial-gradient(circle at top right, rgba(99, 102, 241, 0.16), transparent 24rem),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.12), transparent 22rem);
+}
 
-  .panel-soft {
-    @apply rounded-2xl border border-app-border bg-app-card-soft/90 shadow-panel backdrop-blur;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .field-label {
-    @apply mb-2 block text-sm font-semibold text-zinc-300;
-  }
+a {
+  @apply transition-colors;
+}
 
-  .input-base {
-    @apply h-11 w-full rounded-2xl border border-white/10 bg-black/30 px-4 text-sm text-zinc-100 outline-none transition focus:border-app-accent focus:ring-2 focus:ring-app-accent/30;
-  }
-
-  .textarea-base {
-    @apply w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-app-accent focus:ring-2 focus:ring-app-accent/30;
-  }
-
-  .select-base {
-    @apply input-base appearance-none;
-  }
-
-  .button-primary {
-    @apply inline-flex items-center justify-center rounded-2xl bg-app-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50;
-  }
-
-  .button-secondary {
-    @apply inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-zinc-100 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50;
-  }
-
-  .button-danger {
-    @apply inline-flex items-center justify-center rounded-2xl border border-rose-500/30 bg-rose-500/10 px-4 py-2.5 text-sm font-semibold text-rose-300 transition hover:bg-rose-500/20 disabled:cursor-not-allowed disabled:opacity-50;
-  }
-
-  .badge-base {
-    @apply inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold;
-  }
-
-  .dialog-overlay {
-    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm;
-  }
-
-  .dialog-panel {
-    @apply panel max-h-[90vh] w-full max-w-2xl overflow-y-auto p-6;
-  }
-
-  .table-shell {
-    @apply overflow-hidden rounded-2xl border border-white/10;
-  }
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: transparent;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #f4f4f5;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+body[data-modal-open='true'] {
+  overflow: hidden;
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-border rounded-card shadow-sm;
+  }
+
+  .card-elevated {
+    @apply bg-elevated border border-border rounded-card shadow-md;
+  }
+
+  .input {
+    @apply h-10 w-full rounded-input border border-border bg-elevated px-3 text-sm text-text-primary placeholder:text-text-tertiary transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent-ring;
+  }
+
+  .select {
+    @apply input appearance-none cursor-pointer;
+  }
+
+  .textarea {
+    @apply w-full rounded-input border border-border bg-elevated px-3 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent-ring resize-none;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-button font-medium transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed select-none;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent hover:bg-accent-hover text-white px-4 py-2 text-sm shadow-sm hover:shadow-glow;
+  }
+
+  .btn-secondary {
+    @apply btn bg-elevated border border-border hover:bg-hover hover:border-border-strong text-text-primary px-4 py-2 text-sm;
+  }
+
+  .btn-ghost {
+    @apply btn hover:bg-hover text-text-secondary hover:text-text-primary px-3 py-2 text-sm;
+  }
+
+  .btn-danger {
+    @apply btn bg-danger-subtle border border-danger/20 hover:bg-danger/20 text-danger-text px-4 py-2 text-sm;
+  }
+
+  .btn-icon {
+    @apply btn hover:bg-hover text-text-secondary hover:text-text-primary p-2 rounded-button;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-badge px-2 py-0.5 text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-success-subtle text-success-text border border-success/15;
+  }
+
+  .badge-warning {
+    @apply badge bg-warning-subtle text-warning-text border border-warning/15;
+  }
+
+  .badge-danger {
+    @apply badge bg-danger-subtle text-danger-text border border-danger/15;
+  }
+
+  .badge-info {
+    @apply badge bg-info-subtle text-info-text border border-info/15;
+  }
+
+  .badge-accent {
+    @apply badge bg-accent-subtle text-accent-text border border-accent/15;
+  }
+
+  .badge-neutral {
+    @apply badge bg-elevated text-text-secondary border border-border;
+  }
+
+  .field-label {
+    @apply block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5;
+  }
+
+  .divider {
+    @apply border-t border-border;
+  }
+
+  .table-base {
+    @apply w-full text-sm text-left;
+  }
+
+  .table-base thead th {
+    @apply px-4 py-3 text-xs font-semibold text-text-tertiary uppercase tracking-wider bg-elevated border-b border-border;
+  }
+
+  .table-base tbody td {
+    @apply px-4 py-3.5 border-b border-border/50 text-text-secondary align-top;
+  }
+
+  .table-base tbody tr {
+    @apply transition-colors hover:bg-hover/50;
+  }
+
+  .table-base tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .page-header {
+    @apply mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between;
+  }
+
+  .page-title {
+    @apply text-2xl font-semibold text-text-primary tracking-tight sm:text-3xl;
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-sm text-text-secondary;
+  }
+
+  .section-title {
+    @apply text-base font-semibold text-text-primary mb-4;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-elevated rounded;
+  }
+
+  .pill-filter {
+    @apply inline-flex items-center gap-2 rounded-pill border border-border px-3 py-1.5 text-sm text-text-secondary transition-all hover:border-border-strong hover:bg-hover hover:text-text-primary;
+  }
+
+  .pill-filter-active {
+    @apply border-accent/30 bg-accent-subtle text-text-primary shadow-glow;
+  }
+
+  .surface-outline {
+    @apply rounded-card border border-border bg-surface;
+  }
+
+  .surface-muted {
+    @apply rounded-card border border-border-subtle bg-elevated/60;
+  }
+
+  .switch {
+    @apply relative inline-flex h-6 w-11 items-center rounded-full border border-border transition-colors;
+  }
+
+  .switch[data-checked='true'] {
+    @apply border-accent bg-accent-subtle;
+  }
+
+  .switch-thumb {
+    @apply h-5 w-5 rounded-full bg-white shadow-sm transition-transform;
+    transform: translateX(2px);
+  }
+
+  .switch[data-checked='true'] .switch-thumb {
+    transform: translateX(20px);
+  }
+
+  .json-key {
+    color: #a5b4fc;
+  }
+
+  .json-string {
+    color: #86efac;
+  }
+
+  .json-number {
+    color: #fbbf24;
+  }
+
+  .json-boolean {
+    color: #60a5fa;
+  }
+
+  .json-null {
+    color: #f87171;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 @media print {
@@ -94,17 +263,9 @@ body {
     display: none !important;
   }
 
-  .panel,
-  .panel-soft,
-  .print-surface {
+  .print-card {
+    border: 1px solid #e5e7eb !important;
     background: white !important;
-    color: black !important;
-    border-color: #d4d4d8 !important;
     box-shadow: none !important;
-  }
-
-  a {
-    color: black !important;
-    text-decoration: none !important;
   }
 }
