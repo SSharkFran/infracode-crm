@@ -26,11 +26,21 @@ export function ConfirmProvider({ children }: { children: ReactNode }) {
   return (
     <ConfirmContext.Provider value={confirm}>
       {children}
-      <Modal description="Essa ação pode alterar dados de forma permanente." onClose={() => handleClose(false)} open={Boolean(message)} size="sm" title="Confirmar ação">
+      <Modal
+        description="Essa ação pode alterar dados de forma permanente."
+        onClose={() => handleClose(false)}
+        open={Boolean(message)}
+        size="sm"
+        title="Confirmar ação"
+      >
         <p className="text-sm leading-6 text-text-secondary">{message}</p>
         <div className="mt-6 flex justify-end gap-3">
-          <Button onClick={() => handleClose(false)} variant="secondary">Cancelar</Button>
-          <Button onClick={() => handleClose(true)} variant="danger">Confirmar</Button>
+          <Button onClick={() => handleClose(false)} variant="secondary">
+            Cancelar
+          </Button>
+          <Button onClick={() => handleClose(true)} variant="danger">
+            Confirmar
+          </Button>
         </div>
       </Modal>
     </ConfirmContext.Provider>
