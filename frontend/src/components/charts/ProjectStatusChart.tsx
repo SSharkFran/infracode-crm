@@ -1,22 +1,36 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 
+import { CustomTooltip } from './CustomTooltip';
+
+interface ProjectStatusDatum {
+  name: string;
+  value: number;
+  color: string;
+}
+
 interface ProjectStatusChartProps {
-  data: Array<{ name: string; value: number; color: string }>;
+  data: ProjectStatusDatum[];
 }
 
 export default function ProjectStatusChart({ data }: ProjectStatusChartProps) {
   return (
-    <div className="h-80 w-full">
+    <div className="h-72 w-full">
       <ResponsiveContainer>
         <PieChart>
-          <Pie data={data} dataKey="value" nameKey="name" innerRadius={70} outerRadius={110} paddingAngle={4}>
-            {data.map((entry) => (
-              <Cell key={entry.name} fill={entry.color} />
+          <Pie
+            data={data}
+            dataKey="value"
+            innerRadius={76}
+            outerRadius={104}
+            paddingAngle={2}
+            strokeWidth={0}
+            isAnimationActive
+          >
+            {data.map((item) => (
+              <Cell key={item.name} fill={item.color} />
             ))}
           </Pie>
-          <Tooltip
-            contentStyle={{ background: '#141414', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16 }}
-          />
+          <Tooltip content={<CustomTooltip />} />
         </PieChart>
       </ResponsiveContainer>
     </div>
